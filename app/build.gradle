@@ -1,0 +1,103 @@
+apply plugin: 'com.taobao.atlas.application'
+
+android {
+    compileSdkVersion BUILD_SDK_VERSION as int
+    buildToolsVersion BUILD_TOOL_VERSION as String
+    defaultConfig {
+        applicationId "com.xns.atlas.demo"
+        multiDexEnabled true
+        minSdkVersion 15
+        targetSdkVersion BUILD_SDK_VERSION as int
+        versionCode 1
+        versionName "1.0"
+        ndk {
+            abiFilters "x86", "armeabi"  //默认只启用x86,armeabi
+        }
+    }
+
+    dexOptions {
+        jumboMode = true
+        preDexLibraries = false
+        javaMaxHeapSize = '2048m'
+    }
+
+    buildTypes {
+        debug {
+            // debug模式
+            multiDexEnabled true
+        }
+        release {
+            multiDexEnabled true
+
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+//    repositories {
+//        flatDir {
+//            dirs 'libs' //this way we can find the .aar file in libs folder
+//        }
+//    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    compile 'com.android.support:appcompat-v7:23.1.0'
+
+//    compile 'com.android.support:design:25.2.0'
+
+    compile('com.taobao.android:atlas:1.0.2@aar') {
+        transitive = true
+    }
+    compile 'com.taobao.android:atlasupdate:1.0.0@aar'
+    compile 'com.alibaba:fastjson:1.1.45.android@jar'
+    compile project(path: ':base')
+
+}
+
+
+configurations {
+    providedCompile
+    all*.exclude group: 'com.android.support', module: 'multidex'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.14.1'
+    distributionUrl = 'http://services.gradle.org/distributions/gradle-2.14.1-all.zip'
+}
+
+
+atlas {
+
+    atlasEnabled true
+//
+//    tBuildConfig {
+//        autoStartBundles = ['com.taobao.firstbundle'] //自启动bundle配置
+//    }
+
+
+    patchConfigs{
+        debug {
+            createTPatch true
+        }
+    }
+
+
+//    buildTypes {
+//        debug {
+//            if (apVersion){
+//                baseApDependency   "com.taobao.android.atlasdemo:AP-debug:${apVersion}@ap"
+//                patchConfig    patchConfigs.debug
+//            }
+//        }
+//    }
+
+}
+
+tasks.whenTaskAdded { task ->
+    if (task.name.contains("DebugAndroidTest")) {
+        task.setEnabled(false);
+    }
+}
