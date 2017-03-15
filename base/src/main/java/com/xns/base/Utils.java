@@ -7,7 +7,7 @@ package com.xns.base;
 public class Utils {
 
     public static void dosomething() {
-        System.out.println("working");
-        System.out.println("work done");
+        System.out.println("base-utils working");
+        System.out.println("base-utils work done");
     }
 }

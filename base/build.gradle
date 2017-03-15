@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply from: rootProject.file("gradle/bintray.gradle")
 
+version=PROJ_VERSION
 
 android {
     compileSdkVersion BUILD_SDK_VERSION as int
@@ -10,7 +11,7 @@ android {
         minSdkVersion 15
         targetSdkVersion BUILD_SDK_VERSION as int
         versionCode 1
-        versionName "1.0"
+        versionName version
     }
     buildTypes {
         release {

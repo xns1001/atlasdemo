@@ -1,11 +1,11 @@
 
-
-
 apply plugin: 'com.taobao.atlas.library'
 apply plugin: 'maven-publish'
 
-group = 'com.xns.atlas'
-version = '1.0.0'
+apply from: rootProject.file("gradle/bintray.gradle")
+
+group = PROJ_GROUP
+version = PROJ_VERSION
 
 tasks.withType(JavaCompile) {
     sourceCompatibility = 1.7
@@ -39,7 +39,16 @@ atlas.bundleConfig.awbBundle = true
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile "com.android.support:appcompat-v7:${SUPPORT_VERSION}"
+//    compile "com.android.support:appcompat-v7:${SUPPORT_VERSION}"
+    compile 'com.xns.atlasdemo:lib-base:1.0.1'
 }
 
 
+publishing {
+    publications {
+        maven(MavenPublication) {
+            artifact "${project.buildDir}/outputs/awb/${project.name}-release.awb"
+            artifact sourcesJar
+        }
+    }
+}

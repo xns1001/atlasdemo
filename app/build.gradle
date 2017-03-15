@@ -34,11 +34,7 @@ android {
         }
     }
 
-//    repositories {
-//        flatDir {
-//            dirs 'libs' //this way we can find the .aar file in libs folder
-//        }
-//    }
+
 }
 
 dependencies {
@@ -46,15 +42,14 @@ dependencies {
 
     compile 'com.android.support:appcompat-v7:23.1.0'
 
-//    compile 'com.android.support:design:25.2.0'
 
-    compile('com.taobao.android:atlas:1.0.2@aar') {
+    compile('com.taobao.android:atlas_core:5.0.6@aar') {
         transitive = true
     }
-    compile 'com.taobao.android:atlasupdate:1.0.0@aar'
+    compile 'com.taobao.android:atlasupdate:1.1.4@aar'
     compile 'com.alibaba:fastjson:1.1.45.android@jar'
-    compile project(path: ':base')
-
+    compile 'com.xns.atlasdemo:lib-base:1.0.1@aar'
+    compile 'com.xns.atlasdemo:bundlea:1.0.7@awb'
 }
 
 
@@ -72,10 +67,10 @@ task wrapper(type: Wrapper) {
 atlas {
 
     atlasEnabled true
-//
-//    tBuildConfig {
-//        autoStartBundles = ['com.taobao.firstbundle'] //自启动bundle配置
-//    }
+
+    tBuildConfig {
+        autoStartBundles = ['com.xns.bundlea'] //自启动bundle配置
+    }
 
 
     patchConfigs{
