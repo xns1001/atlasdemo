@@ -49,7 +49,7 @@ dependencies {
     compile 'com.taobao.android:atlasupdate:1.1.4@aar'
     compile 'com.alibaba:fastjson:1.1.45.android@jar'
     compile 'com.xns.atlasdemo:lib-base:1.0.1@aar'
-    compile 'com.xns.atlasdemo:bundlea:1.0.7@awb'
+    compile 'com.xns.atlasdemo:bundlea:1.0.8@awb'
 }
 
 
@@ -73,12 +73,11 @@ atlas {
     }
 
 
-    patchConfigs{
+    patchConfigs {
         debug {
             createTPatch true
         }
     }
-
 
 //    buildTypes {
 //        debug {
@@ -95,4 +94,12 @@ tasks.whenTaskAdded { task ->
     if (task.name.contains("DebugAndroidTest")) {
         task.setEnabled(false);
     }
+}
+
+task hasApp<<{
+    def plugins = project.getPlugins()
+    for(plugin in plugins){
+        println "plugin:$plugin"
+    }
+
 }

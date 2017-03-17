@@ -9,19 +9,19 @@ import android.widget.ImageView;
 import com.xns.base.BaseActivity;
 import com.xns.base.Utils;
 
-
 /**
  * Created by xiongningsheng on 2017/3/14.
  */
-
 public class MainActivity extends BaseActivity {
     private static final String TAG = "MainActivity";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
         Log.d(TAG, "onCreate() called with: savedInstanceState = [" + savedInstanceState + "]");
         ImageView iv1 = (ImageView) findViewById(R.id.iv1);
-//        iv1.setBackgroundResource(com.xns.base.R.drawable.push);
+        iv1.setBackgroundResource(com.xns.base.R.drawable.push);
         Utils.dosomething();
     }
 }
